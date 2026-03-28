@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MQT_GlobexHighLowShading – NinjaTrader 8 Indicator</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:Segoe UI, Tahoma, sans-serif;
+  background:#0a0a0a;
+  color:#e0e0e0;
+  line-height:1.6;
+}
+.container{max-width:1200px;margin:0 auto;padding:0 20px}
+
+/* Header */
+header{
+  background:#000;
+  border-bottom:2px solid #00ff00;
+  padding:16px 0;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.brand img{height:40px}
+.brand h1{
+  color:#00ff00;
+  font-size:1.5rem;
+  font-weight:700;
+}
+
+/* Hero */
+.hero{
+  padding:80px 0;
+  text-align:center;
+  background:linear-gradient(135deg,#000,#1a1a1a);
+  border-bottom:3px solid #00ff00;
+}
+.hero h2{
+  color:#00ff00;
+  font-size:2.7rem;
+  margin-bottom:18px;
+}
+.hero p{
+  max-width:900px;
+  margin:0 auto 30px;
+  font-size:1.2rem;
+  color:#b0b0b0;
+}
+.cta-button{
+  display:inline-block;
+  background:#00ff00;
+  color:#000;
+  padding:14px 38px;
+  font-weight:800;
+  border-radius:5px;
+  text-decoration:none;
+  border:2px solid #00ff00;
+  transition:.25s;
+}
+.cta-button:hover{
+  background:#000;
+  color:#00ff00;
+  box-shadow:0 0 18px rgba(0,255,0,.4);
+}
+
+/* Sections */
+.section-title{
+  text-align:center;
+  color:#00ff00;
+  font-size:2.2rem;
+  margin-bottom:50px;
+  text-transform:uppercase;
+  letter-spacing:2px;
+}
+
+/* Features */
+.features{padding:60px 0;background:#0f0f0f}
+.feature-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:30px;
+}
+.feature-card{
+  background:#1a1a1a;
+  border:1px solid #333;
+  border-radius:8px;
+  padding:28px;
+  transition:.25s;
+}
+.feature-card:hover{
+  border-color:#00ff00;
+  transform:translateY(-5px);
+}
+.feature-card h3{color:#00ff00;margin-bottom:12px}
+.feature-card p{color:#b0b0b0}
+
+/* Screenshots */
+.screenshots{padding:60px 0;background:#000}
+.screenshot-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(420px,1fr));
+  gap:30px;
+}
+.screenshot-item{
+  background:#1a1a1a;
+  border:1px solid #333;
+  border-radius:8px;
+  padding:18px;
+}
+.screenshot-item img{
+  width:100%;
+  border-radius:6px;
+  margin-bottom:12px;
+}
+.screenshot-item h3{text-align:center;color:#00ff00}
+.screenshot-item p{text-align:center;color:#9a9a9a;font-size:.95rem}
+
+/* How it works */
+.how-it-works{padding:60px 0;background:#0f0f0f}
+.steps{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:30px;
+}
+.step{
+  background:#1a1a1a;
+  padding:28px;
+  border-left:4px solid #00ff00;
+  border-radius:8px;
+}
+.step-number{
+  width:40px;height:40px;
+  background:#00ff00;color:#000;
+  border-radius:50%;
+  text-align:center;
+  line-height:40px;
+  font-weight:800;
+  margin-bottom:12px;
+}
+.step h3{color:#00ff00;margin-bottom:8px}
+.step p{color:#b0b0b0}
+
+/* Settings */
+.settings{padding:60px 0;background:#000}
+.settings-table{
+  width:100%;
+  border-collapse:collapse;
+  background:#1a1a1a;
+}
+.settings-table th{
+  background:#00ff00;
+  color:#000;
+  padding:14px;
+  text-align:left;
+}
+.settings-table td{
+  padding:14px;
+  border-bottom:1px solid #333;
+  color:#b0b0b0;
+}
+
+/* FAQ */
+.faq{padding:60px 0;background:#0f0f0f}
+.faq-item{
+  background:#1a1a1a;
+  border-left:4px solid #00ff00;
+  border-radius:8px;
+  padding:24px;
+  margin-bottom:20px;
+}
+.faq-item h3{color:#00ff00;margin-bottom:10px}
+.faq-item p{color:#b0b0b0}
+
+/* Footer */
+footer{
+  background:#000;
+  border-top:2px solid #00ff00;
+  padding:30px 0;
+  text-align:center;
+}
+footer p{color:#666}
+footer a{color:#00ff00;text-decoration:none}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="container">
+    <div class="brand">
+      <img src="https://cdn.abacus.ai/images/aa70ee22-c459-4aeb-9432-85d1d0a10682.png" alt="myQuantrader Logo">
+      <h1>MQT_GlobexHighLowShading</h1>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <h2>Visualize Globex Session Ranges — Instantly</h2>
+    <p>
+      Automatically shade the full Globex session's high-to-low range across all Globex bars.
+      Configurable time window (default 5:00 PM → 8:30 AM), adjustable opacity, and custom color.
+      Built for futures traders on NinjaTrader 8 who need clear visual separation between Globex and RTH.
+    </p>
+    <a class="cta-button" href="#" onclick="alert('Add checkout URL');return false;">Download Now</a>
+  </div>
+</section>
+
+<section class="features">
+  <div class="container">
+    <h2 class="section-title">Key Features</h2>
+    <div class="feature-grid">
+
+      <div class="feature-card">
+        <h3>Full Session Range Shading</h3>
+        <p>
+          Shades from the session's highest price to lowest price across all bars within the Globex window.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <h3>Configurable Time Window</h3>
+        <p>
+          Set <strong>Globex Start</strong> and <strong>Globex End</strong> times. Handles overnight sessions that cross midnight.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <h3>Adjustable Opacity</h3>
+        <p>
+          Control transparency from 1–100% to keep your chart readable while highlighting the Globex range.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <h3>Custom Shade Color</h3>
+        <p>
+          Choose any color via the <strong>Shade Brush</strong> property. Default is gray for subtle contrast.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <h3>Direct2D Rendering</h3>
+        <p>
+          Uses SharpDX for smooth, hardware-accelerated fills — no performance impact on large datasets.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <h3>Real-Time Updates</h3>
+        <p>
+          Calculates on each tick (<code>OnEachTick</code>) and retro-fills finalized sessions for historical accuracy.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="screenshots">
+  <div class="container">
+    <h2 class="section-title">Chart Examples</h2>
+
+    <div class="screenshot-grid">
+      <div class="screenshot-item">
+        <img src="https://cdn.abacus.ai/images/2da5d8f9-5bc4-49ce-beef-416d059b69e9.png" alt="Globex session shading example 1">
+        <h3>Globex Range Shading</h3>
+        <p>Blue shaded zones show Globex high-to-low ranges</p>
+      </div>
+
+      <div class="screenshot-item">
+        <img src="https://cdn.abacus.ai/images/49b466ac-afa0-486e-b5a2-a39c15d067ec.png" alt="Globex session shading example 2">
+        <h3>Multiple Sessions</h3>
+        <p>Each Globex session gets its own shaded band</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="how-it-works">
+  <div class="container">
+    <h2 class="section-title">How It Works</h2>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <h3>Detect Globex Bars</h3>
+        <p>Checks each bar's timestamp against your configured time window.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-number">2</div>
+        <h3>Track Session Extremes</h3>
+        <p>Maintains running high/low for the current Globex session.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-number">3</div>
+        <h3>Finalize on Exit</h3>
+        <p>When the session ends, retro-fills all bars with the final high/low.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-number">4</div>
+        <h3>Render Shaded Bands</h3>
+        <p>Uses Direct2D to fill rectangles from high to low for each visible bar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="settings">
+  <div class="container">
+    <h2 class="section-title">Indicator Settings</h2>
+    <table class="settings-table">
+      <thead>
+        <tr>
+          <th>Parameter</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Globex Start</strong></td>
+          <td>Start time of the Globex session (time-of-day only; date ignored).</td>
+          <td>17:00 (5:00 PM)</td>
+        </tr>
+        <tr>
+          <td><strong>Globex End</strong></td>
+          <td>End time of the Globex session (time-of-day only; date ignored).</td>
+          <td>08:30 (8:30 AM)</td>
+        </tr>
+        <tr>
+          <td><strong>Opacity %</strong></td>
+          <td>Transparency of the shaded fill (1–100).</td>
+          <td>25</td>
+        </tr>
+        <tr>
+          <td><strong>Shade Brush</strong></td>
+          <td>Color of the shaded fill. Selectable via color picker in NT8.</td>
+          <td>Gray</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="faq">
+  <div class="container">
+    <h2 class="section-title">FAQ</h2>
+
+    <div class="faq-item">
+      <h3>Does this work for overnight sessions?</h3>
+      <p>Yes. The indicator handles time windows that cross midnight (e.g., 17:00 → 08:30).</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Can I change the shaded color?</h3>
+      <p>Yes. Use the <strong>Shade Brush</strong> property to select any color.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Will it slow down my chart?</h3>
+      <p>No. Direct2D rendering is hardware-accelerated and highly efficient.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Does it repaint?</h3>
+      <p>No. Once a session ends, the high/low is finalized and retro-filled.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Can I use this on any timeframe?</h3>
+      <p>Yes — minute, tick, second, or daily charts all work.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>© 2026 myQuantrader.com — All Rights Reserved</p>
+  </div>
+</footer>
+
+</body>
+</html>
